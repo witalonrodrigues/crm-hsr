@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PreCirurgicoRouteImport } from './routes/pre-cirurgico'
 import { Route as PacienteRouteImport } from './routes/paciente'
+import { Route as OrcamentosRouteImport } from './routes/orcamentos'
 import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as CirurgiaRouteImport } from './routes/cirurgia'
 import { Route as AgendaRouteImport } from './routes/agenda'
@@ -24,6 +25,11 @@ const PreCirurgicoRoute = PreCirurgicoRouteImport.update({
 const PacienteRoute = PacienteRouteImport.update({
   id: '/paciente',
   path: '/paciente',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrcamentosRoute = OrcamentosRouteImport.update({
+  id: '/orcamentos',
+  path: '/orcamentos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeadsRoute = LeadsRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/agenda': typeof AgendaRoute
   '/cirurgia': typeof CirurgiaRoute
   '/leads': typeof LeadsRoute
+  '/orcamentos': typeof OrcamentosRoute
   '/paciente': typeof PacienteRoute
   '/pre-cirurgico': typeof PreCirurgicoRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/agenda': typeof AgendaRoute
   '/cirurgia': typeof CirurgiaRoute
   '/leads': typeof LeadsRoute
+  '/orcamentos': typeof OrcamentosRoute
   '/paciente': typeof PacienteRoute
   '/pre-cirurgico': typeof PreCirurgicoRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/agenda': typeof AgendaRoute
   '/cirurgia': typeof CirurgiaRoute
   '/leads': typeof LeadsRoute
+  '/orcamentos': typeof OrcamentosRoute
   '/paciente': typeof PacienteRoute
   '/pre-cirurgico': typeof PreCirurgicoRoute
 }
@@ -79,16 +88,25 @@ export interface FileRouteTypes {
     | '/agenda'
     | '/cirurgia'
     | '/leads'
+    | '/orcamentos'
     | '/paciente'
     | '/pre-cirurgico'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agenda' | '/cirurgia' | '/leads' | '/paciente' | '/pre-cirurgico'
+  to:
+    | '/'
+    | '/agenda'
+    | '/cirurgia'
+    | '/leads'
+    | '/orcamentos'
+    | '/paciente'
+    | '/pre-cirurgico'
   id:
     | '__root__'
     | '/'
     | '/agenda'
     | '/cirurgia'
     | '/leads'
+    | '/orcamentos'
     | '/paciente'
     | '/pre-cirurgico'
   fileRoutesById: FileRoutesById
@@ -98,6 +116,7 @@ export interface RootRouteChildren {
   AgendaRoute: typeof AgendaRoute
   CirurgiaRoute: typeof CirurgiaRoute
   LeadsRoute: typeof LeadsRoute
+  OrcamentosRoute: typeof OrcamentosRoute
   PacienteRoute: typeof PacienteRoute
   PreCirurgicoRoute: typeof PreCirurgicoRoute
 }
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/paciente'
       fullPath: '/paciente'
       preLoaderRoute: typeof PacienteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orcamentos': {
+      id: '/orcamentos'
+      path: '/orcamentos'
+      fullPath: '/orcamentos'
+      preLoaderRoute: typeof OrcamentosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leads': {
@@ -154,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgendaRoute: AgendaRoute,
   CirurgiaRoute: CirurgiaRoute,
   LeadsRoute: LeadsRoute,
+  OrcamentosRoute: OrcamentosRoute,
   PacienteRoute: PacienteRoute,
   PreCirurgicoRoute: PreCirurgicoRoute,
 }
