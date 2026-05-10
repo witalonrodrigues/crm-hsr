@@ -116,7 +116,7 @@ export function SLABadge({ minutes }: { minutes: number }) {
 
 export function PendBadge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-amber/20 text-amber-foreground border border-amber/40 px-2 py-0.5 text-[10px] font-medium">
+    <span className="inline-flex items-center gap-1 rounded-full bg-amber/20 text-[oklch(0.35_0.1_75)] border border-amber/40 px-2 py-0.5 text-[10px] font-medium">
       ⚠ {children}
     </span>
   );
