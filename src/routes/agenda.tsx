@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-header";
 import { Card } from "@/components/ui/card";
@@ -58,7 +59,7 @@ function AgendaPage() {
             <div />
             {DAYS.map((d) => <div key={d} className="text-xs font-semibold text-center py-2 text-muted-foreground">{d}</div>)}
             {HOURS.map((h, hi) => (
-              <>
+              <Fragment key={h}>
                 <div key={`h-${h}`} className="text-[11px] text-muted-foreground py-3 pr-2 text-right">{h}</div>
                 {DAYS.map((_, di) => {
                   const s = SLOTS[`${di}-${hi}`];
@@ -73,7 +74,7 @@ function AgendaPage() {
                     </div>
                   );
                 })}
-              </>
+              </Fragment>
             ))}
           </div>
         </Card>
