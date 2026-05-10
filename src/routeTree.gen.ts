@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PreCirurgicoRouteImport } from './routes/pre-cirurgico'
 import { Route as PacienteRouteImport } from './routes/paciente'
 import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as CirurgiaRouteImport } from './routes/cirurgia'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PreCirurgicoRoute = PreCirurgicoRouteImport.update({
+  id: '/pre-cirurgico',
+  path: '/pre-cirurgico',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PacienteRoute = PacienteRouteImport.update({
   id: '/paciente',
   path: '/paciente',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/cirurgia': typeof CirurgiaRoute
   '/leads': typeof LeadsRoute
   '/paciente': typeof PacienteRoute
+  '/pre-cirurgico': typeof PreCirurgicoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/cirurgia': typeof CirurgiaRoute
   '/leads': typeof LeadsRoute
   '/paciente': typeof PacienteRoute
+  '/pre-cirurgico': typeof PreCirurgicoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,27 @@ export interface FileRoutesById {
   '/cirurgia': typeof CirurgiaRoute
   '/leads': typeof LeadsRoute
   '/paciente': typeof PacienteRoute
+  '/pre-cirurgico': typeof PreCirurgicoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agenda' | '/cirurgia' | '/leads' | '/paciente'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/cirurgia'
+    | '/leads'
+    | '/paciente'
+    | '/pre-cirurgico'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agenda' | '/cirurgia' | '/leads' | '/paciente'
-  id: '__root__' | '/' | '/agenda' | '/cirurgia' | '/leads' | '/paciente'
+  to: '/' | '/agenda' | '/cirurgia' | '/leads' | '/paciente' | '/pre-cirurgico'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/cirurgia'
+    | '/leads'
+    | '/paciente'
+    | '/pre-cirurgico'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +99,18 @@ export interface RootRouteChildren {
   CirurgiaRoute: typeof CirurgiaRoute
   LeadsRoute: typeof LeadsRoute
   PacienteRoute: typeof PacienteRoute
+  PreCirurgicoRoute: typeof PreCirurgicoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pre-cirurgico': {
+      id: '/pre-cirurgico'
+      path: '/pre-cirurgico'
+      fullPath: '/pre-cirurgico'
+      preLoaderRoute: typeof PreCirurgicoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/paciente': {
       id: '/paciente'
       path: '/paciente'
@@ -125,7 +155,18 @@ const rootRouteChildren: RootRouteChildren = {
   CirurgiaRoute: CirurgiaRoute,
   LeadsRoute: LeadsRoute,
   PacienteRoute: PacienteRoute,
+  PreCirurgicoRoute: PreCirurgicoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
