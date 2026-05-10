@@ -7,6 +7,10 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Toaster } from "@/components/ui/sonner";
+import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 
 import appCss from "../styles.css?url";
 
@@ -110,10 +114,44 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <div className="flex min-h-screen w-full bg-background">
+        <AppSidebar onOpenSearch={() => setOpen(true)} />
+        <main className="flex-1 min-w-0">
+          <Outlet />
+        </main>
+      </div>
+      <Toaster />
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Buscar paciente por nome, CPF, telefone ou ID…" />
+        <CommandList>
+          <CommandEmpty>Nenhum resultado.</CommandEmpty>
+          <CommandGroup heading="Pacientes">
+            <CommandItem onSelect={() => setOpen(false)}>Beatriz Furtado · P-2201</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}>Larissa Mendes · P-2150</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}>Camila Tavares · P-2098</CommandItem>
+          </CommandGroup>
+          <CommandGroup heading="Atalhos">
+            <CommandItem onSelect={() => setOpen(false)}>Ir para Dashboard</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}>Novo Lead</CommandItem>
+            <CommandItem onSelect={() => setOpen(false)}>Novo Agendamento</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </QueryClientProvider>
   );
 }

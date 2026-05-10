@@ -9,8 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PreCirurgicoRouteImport } from './routes/pre-cirurgico'
+import { Route as PacienteRouteImport } from './routes/paciente'
+import { Route as OrcamentosRouteImport } from './routes/orcamentos'
+import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as CirurgiaRouteImport } from './routes/cirurgia'
+import { Route as CadastroRouteImport } from './routes/cadastro'
+import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PreCirurgicoRoute = PreCirurgicoRouteImport.update({
+  id: '/pre-cirurgico',
+  path: '/pre-cirurgico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PacienteRoute = PacienteRouteImport.update({
+  id: '/paciente',
+  path: '/paciente',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrcamentosRoute = OrcamentosRouteImport.update({
+  id: '/orcamentos',
+  path: '/orcamentos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsRoute = LeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CirurgiaRoute = CirurgiaRouteImport.update({
+  id: '/cirurgia',
+  path: '/cirurgia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +67,144 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/cadastro': typeof CadastroRoute
+  '/cirurgia': typeof CirurgiaRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/leads': typeof LeadsRoute
+  '/orcamentos': typeof OrcamentosRoute
+  '/paciente': typeof PacienteRoute
+  '/pre-cirurgico': typeof PreCirurgicoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/cadastro': typeof CadastroRoute
+  '/cirurgia': typeof CirurgiaRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/leads': typeof LeadsRoute
+  '/orcamentos': typeof OrcamentosRoute
+  '/paciente': typeof PacienteRoute
+  '/pre-cirurgico': typeof PreCirurgicoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/cadastro': typeof CadastroRoute
+  '/cirurgia': typeof CirurgiaRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/leads': typeof LeadsRoute
+  '/orcamentos': typeof OrcamentosRoute
+  '/paciente': typeof PacienteRoute
+  '/pre-cirurgico': typeof PreCirurgicoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/cadastro'
+    | '/cirurgia'
+    | '/configuracoes'
+    | '/leads'
+    | '/orcamentos'
+    | '/paciente'
+    | '/pre-cirurgico'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/agenda'
+    | '/cadastro'
+    | '/cirurgia'
+    | '/configuracoes'
+    | '/leads'
+    | '/orcamentos'
+    | '/paciente'
+    | '/pre-cirurgico'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/cadastro'
+    | '/cirurgia'
+    | '/configuracoes'
+    | '/leads'
+    | '/orcamentos'
+    | '/paciente'
+    | '/pre-cirurgico'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
+  CadastroRoute: typeof CadastroRoute
+  CirurgiaRoute: typeof CirurgiaRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  LeadsRoute: typeof LeadsRoute
+  OrcamentosRoute: typeof OrcamentosRoute
+  PacienteRoute: typeof PacienteRoute
+  PreCirurgicoRoute: typeof PreCirurgicoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pre-cirurgico': {
+      id: '/pre-cirurgico'
+      path: '/pre-cirurgico'
+      fullPath: '/pre-cirurgico'
+      preLoaderRoute: typeof PreCirurgicoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paciente': {
+      id: '/paciente'
+      path: '/paciente'
+      fullPath: '/paciente'
+      preLoaderRoute: typeof PacienteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orcamentos': {
+      id: '/orcamentos'
+      path: '/orcamentos'
+      fullPath: '/orcamentos'
+      preLoaderRoute: typeof OrcamentosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cirurgia': {
+      id: '/cirurgia'
+      path: '/cirurgia'
+      fullPath: '/cirurgia'
+      preLoaderRoute: typeof CirurgiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +217,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
+  CadastroRoute: CadastroRoute,
+  CirurgiaRoute: CirurgiaRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  LeadsRoute: LeadsRoute,
+  OrcamentosRoute: OrcamentosRoute,
+  PacienteRoute: PacienteRoute,
+  PreCirurgicoRoute: PreCirurgicoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
