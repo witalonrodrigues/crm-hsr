@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SacRouteImport } from './routes/sac'
 import { Route as PreCirurgicoRouteImport } from './routes/pre-cirurgico'
 import { Route as PacienteRouteImport } from './routes/paciente'
 import { Route as OrcamentosRouteImport } from './routes/orcamentos'
@@ -19,6 +20,11 @@ import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SacRoute = SacRouteImport.update({
+  id: '/sac',
+  path: '/sac',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PreCirurgicoRoute = PreCirurgicoRouteImport.update({
   id: '/pre-cirurgico',
   path: '/pre-cirurgico',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/orcamentos': typeof OrcamentosRoute
   '/paciente': typeof PacienteRoute
   '/pre-cirurgico': typeof PreCirurgicoRoute
+  '/sac': typeof SacRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/orcamentos': typeof OrcamentosRoute
   '/paciente': typeof PacienteRoute
   '/pre-cirurgico': typeof PreCirurgicoRoute
+  '/sac': typeof SacRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/orcamentos': typeof OrcamentosRoute
   '/paciente': typeof PacienteRoute
   '/pre-cirurgico': typeof PreCirurgicoRoute
+  '/sac': typeof SacRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/orcamentos'
     | '/paciente'
     | '/pre-cirurgico'
+    | '/sac'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/orcamentos'
     | '/paciente'
     | '/pre-cirurgico'
+    | '/sac'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/orcamentos'
     | '/paciente'
     | '/pre-cirurgico'
+    | '/sac'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,10 +157,18 @@ export interface RootRouteChildren {
   OrcamentosRoute: typeof OrcamentosRoute
   PacienteRoute: typeof PacienteRoute
   PreCirurgicoRoute: typeof PreCirurgicoRoute
+  SacRoute: typeof SacRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sac': {
+      id: '/sac'
+      path: '/sac'
+      fullPath: '/sac'
+      preLoaderRoute: typeof SacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pre-cirurgico': {
       id: '/pre-cirurgico'
       path: '/pre-cirurgico'
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrcamentosRoute: OrcamentosRoute,
   PacienteRoute: PacienteRoute,
   PreCirurgicoRoute: PreCirurgicoRoute,
+  SacRoute: SacRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
