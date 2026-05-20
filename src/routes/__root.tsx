@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
-import { MobileTopbar } from "@/components/mobile-topbar";
 import { Toaster } from "@/components/ui/sonner";
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 
@@ -78,13 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { name: "description", content: "SR Health CRM manages the entire patient journey for elective plastic surgery, from lead to post-operative care." },
       { name: "author", content: "Lovable" },
       { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:description", content: "SR Health CRM manages the entire patient journey for elective plastic surgery, from lead to post-operative care." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "twitter:description", content: "SR Health CRM manages the entire patient journey for elective plastic surgery, from lead to post-operative care." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/677924b8-74e8-4afa-8703-5fe3eda3d945/id-preview-763c6954--10d99f4e-d455-4a46-b92b-8d70e8dd1c29.lovable.app-1779241891426.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/677924b8-74e8-4afa-8703-5fe3eda3d945/id-preview-763c6954--10d99f4e-d455-4a46-b92b-8d70e8dd1c29.lovable.app-1779241891426.png" },
     ],
     links: [
       {
@@ -132,12 +135,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen w-full bg-background">
         <AppSidebar onOpenSearch={() => setOpen(true)} />
-        <div className="flex-1 min-w-0 flex flex-col">
-          <MobileTopbar onOpenSearch={() => setOpen(true)} />
-          <main className="flex-1 min-w-0">
-            <Outlet />
-          </main>
-        </div>
+        <main className="flex-1 min-w-0">
+          <Outlet />
+        </main>
       </div>
       <Toaster />
       <CommandDialog open={open} onOpenChange={setOpen}>
