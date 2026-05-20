@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
+import { MobileTopbar } from "@/components/mobile-topbar";
 import { Toaster } from "@/components/ui/sonner";
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 
@@ -131,9 +132,12 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen w-full bg-background">
         <AppSidebar onOpenSearch={() => setOpen(true)} />
-        <main className="flex-1 min-w-0">
-          <Outlet />
-        </main>
+        <div className="flex-1 min-w-0 flex flex-col">
+          <MobileTopbar onOpenSearch={() => setOpen(true)} />
+          <main className="flex-1 min-w-0">
+            <Outlet />
+          </main>
+        </div>
       </div>
       <Toaster />
       <CommandDialog open={open} onOpenChange={setOpen}>
